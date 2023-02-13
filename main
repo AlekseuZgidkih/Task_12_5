@@ -1,0 +1,49 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int IsKPeriodic(string txt, string pat);
+
+int main() {
+
+	string text = "abcabcabcabcabcabcabc";
+	string pat = "abc";
+	int multiple = IsKPeriodic(text, pat);
+
+	if (multiple)cout << "multiple: " << multiple << endl;
+	else cout << " not multiple";
+
+	return 0;
+}
+
+
+
+
+
+
+/*------------------------------------------------------------------------*/
+int IsKPeriodic(string txt, string pat) {
+	int patSize = pat.size();					// определим размер строки 
+	int txtSize = txt.size();					// определим размер строки 
+	int multiple = 0;							// переменная кратность
+
+	int j = 0;
+	int i = 0;									// переменная цикла
+	if (pat.empty())return 0;
+	if (!(txtSize % patSize)) {					// если строка делится на часть без остатка
+		for (i; i < txtSize; ) {					// проходим по строке текста  
+
+			for (int l = 0; l < patSize; l++) {	// сравниваем поэлементно две строки
+				if (pat[l] != txt[i + l])			// если символы не равны выходим с 0 
+					return 0;
+			}
+
+			multiple++;							// увеличиваем значение кратности
+			i += patSize;						// увеличиваем i на 
+
+		}
+		return multiple;						// возвращаем значение кратности
+	}
+	else return 0;
+}
