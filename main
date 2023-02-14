@@ -12,19 +12,18 @@ int main() {
 	string pat ;
 	int K;
 	while(true){
-		
-	cout << "Введите строку символов (0 - выйти):\t" ;
-	cin >> text;
-	if (text == "0")break;
+		cout << "Введите строку символов (0 - выйти):\t" ;
+		cin >> text;
+		if (text == "0")break;
 
-	cout << "Введите символы для поиска:\t\t" ;
-	cin >> pat;
+		cout << "Введите символы для поиска:\t\t" ;
+		cin >> pat;
 
-	cout << "Введите К- количество повторение:\t" ;
-	cin >> K;
+		cout << "Введите К- количество повторение:\t" ;
+		cin >> K;
 	
-	if( IsKPeriodic(text, pat, K)) cout << "Строка кратная К."<<endl << endl;
-	else cout<<"Строка не кратная К."<<endl << endl;
+		if( IsKPeriodic(text, pat, K)) cout << "Строка кратная К."<<endl << endl;
+		else cout<<"Строка не кратная К."<<endl << endl;
 	}
 
 	return 0;
