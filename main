@@ -1,18 +1,31 @@
+
 #include <iostream>
 #include <string>
 
 using namespace std;
 
-int IsKPeriodic(string txt, string pat);
+bool IsKPeriodic(string txt, string pat, int K);
 
 int main() {
+	setlocale(LC_ALL, "");
+	string text;
+	string pat ;
+	int K;
+	while(true){
+		
+	cout << "Введите строку символов (0 - выйти):\t" ;
+	cin >> text;
+	if (text == "0")break;
 
-	string text = "abcabcabcabcabcabcabc";
-	string pat = "abc";
-	int multiple = IsKPeriodic(text, pat);
+	cout << "Введите символы для поиска:\t\t" ;
+	cin >> pat;
 
-	if (multiple)cout << "multiple: " << multiple << endl;
-	else cout << " not multiple";
+	cout << "Введите К- количество повторение:\t" ;
+	cin >> K;
+	
+	if( IsKPeriodic(text, pat, K)) cout << "Строка кратная К."<<endl << endl;
+	else cout<<"Строка не кратная К."<<endl << endl;
+	}
 
 	return 0;
 }
@@ -23,27 +36,28 @@ int main() {
 
 
 /*------------------------------------------------------------------------*/
-int IsKPeriodic(string txt, string pat) {
-	int patSize = pat.size();					// определим размер строки 
-	int txtSize = txt.size();					// определим размер строки 
-	int multiple = 0;							// переменная кратность
+bool IsKPeriodic(string txt, string pat, int K) {
+	size_t patSize = pat.size();					// определим размер строки 
+	size_t txtSize = txt.size();					// определим размер строки 
+	size_t multiple = 0;						// переменная кратность
 
-	int j = 0;
-	int i = 0;									// переменная цикла
-	if (pat.empty())return 0;
+	if (pat.empty()||K==0||K> txtSize)
+		return false;
+
+	size_t i = 0;							// переменная цикла
+	
 	if (!(txtSize % patSize)) {					// если строка делится на часть без остатка
-		for (i; i < txtSize; ) {					// проходим по строке текста  
+		for (i; i < txtSize; ) {				// проходим по строке текста  
 
-			for (int l = 0; l < patSize; l++) {	// сравниваем поэлементно две строки
-				if (pat[l] != txt[i + l])			// если символы не равны выходим с 0 
-					return 0;
+			for (size_t l = 0; l < patSize; l++) {		// сравниваем поэлементно две строки
+				if (pat[l] != txt[i + l])		// если символы не равны выходим с 0 
+					return false;
 			}
-
-			multiple++;							// увеличиваем значение кратности
-			i += patSize;						// увеличиваем i на 
-
+			multiple++;					// увеличиваем значение кратности
+			i += patSize;					// увеличиваем i на 
 		}
-		return multiple;						// возвращаем значение кратности
+		if (multiple==K) return true;				// возвращаем значение кратности
+		
 	}
-	else return 0;
+	return false;
 }
